@@ -15,7 +15,7 @@ namespace gui
 	// WinAPI const and vars
 	inline HWND hWindow = nullptr;
 	inline WNDCLASSEXA windowClass = {};
-	inline POINTS position = {};
+	inline POINTS cursorPosition = {}; // Relative to the screen
 	constexpr int WIDTH = 500;
 	constexpr int LENGTH = 500;
 
