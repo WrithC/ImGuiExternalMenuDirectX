@@ -117,6 +117,7 @@ void gui::DestroyD3DDevice() noexcept
 
 bool gui::CreateImGuiContext() noexcept
 {
+    //TODO: Implement error checking
     IMGUI_CHECKVERSION();
 
     ImGui::CreateContext();
@@ -124,12 +125,14 @@ bool gui::CreateImGuiContext() noexcept
     [[maybe_unused]] ImGuiIO& io = ImGui::GetIO();
 
     // Disable automatic save states of the menu between sessions
-    io.IniFilename = NULL; 
+    io.IniFilename = nullptr; 
 
     ImGui::StyleColorsDark();
 
     ImGui_ImplWin32_Init(hWindow);
     ImGui_ImplDX9_Init(pD3DDevice);
+
+    return true;
 }
 
 void gui::DestroyImGuiContext() noexcept
@@ -143,7 +146,7 @@ void gui::DestroyImGuiContext() noexcept
 void gui::NewFrame() noexcept
 {
     MSG msg {};
-    while (PeekMessageA(&msg, NULL, 0U, 0U, PM_REMOVE)) // Test changing p2
+    while (PeekMessageA(&msg, nullptr, 0U, 0U, PM_REMOVE)) // Test changing p2
     {
         TranslateMessage(&msg);
         DispatchMessage(&msg);
@@ -168,7 +171,7 @@ void gui::EndFrame() noexcept
     pD3DDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, FALSE);
     pD3DDevice->SetRenderState(D3DRS_SCISSORTESTENABLE, FALSE);
 
-    pD3DDevice->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_RGBA(0, 0, 0, 255), 1.0f, 0);
+    pD3DDevice->Clear(0, nullptr, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_RGBA(0, 0, 0, 255), 1.0f, 0);
 
     if (pD3DDevice->BeginScene() >= 0)
     {
@@ -176,7 +179,7 @@ void gui::EndFrame() noexcept
         ImGui_ImplDX9_RenderDrawData(ImGui::GetDrawData());
         pD3DDevice->EndScene();
     }
-    HRESULT result = pD3DDevice->Present(NULL, NULL, NULL, NULL);
+    HRESULT result = pD3DDevice->Present(nullptr, nullptr, nullptr, nullptr);
 
     // Handle loss of D3D9 device
     if ((result == D3DERR_DEVICELOST) && (pD3DDevice->TestCooperativeLevel() == D3DERR_DEVICENOTRESET))
