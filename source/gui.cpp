@@ -3,19 +3,62 @@
 #include "../imgui/imgui_impl_win32.h"
 #include "gui.h"
 
-bool gui::CreateWinAPIWindow(std::string_view windowName, std::string_view windowClassName) noexcept
+bool gui::CreateWinAPIWindow(
+    const char* windowName,
+    const char* windowClassName
+) noexcept
 {
-    //Populate 
+    // Populate window parameters
+    windowClass.cbSize = sizeof(WNDCLASSEXA);
+    windowClass.lpfnWndProc = WndProc;
+    windowClass.hInstance = GetModuleHandle(nullptr);
+    windowClass.lpszClassName = windowClassName;
+    windowClass.cbWndExtra = 0;
+    windowClass.cbClsExtra = 0;
+    windowClass.hCursor = nullptr;
+    windowClass.hIcon = nullptr;
+    windowClass.hIconSm  = nullptr;
+    windowClass.hbrBackground = nullptr;
+    windowClass.lpszMenuName = nullptr;
+
+    RegisterClassExA(&windowClass);
+
+    hWindow = CreateWindowExA(
+        WS_EX_LEFT,
+        windowClassName,
+        windowName,
+        WS_POPUP,
+        300, 300,
+        WIDTH, HEIGHT,
+        NULL,
+        NULL,
+        windowClass.hInstance,
+        nullptr
+    );
+
+    if (hWindow == nullptr)
+    {
+        return false;
+    }
+
+    ShowWindow(hWindow, SW_SHOWDEFAULT);
+    UpdateWindow(hWindow);
+
+    return true;
 }
 
 void gui::DestroyWinAPIWindow() noexcept
 {
-
+    DestroyWindow(hWindow);
+    UnregisterClass(
+        windowClass.lpszClassName,
+        windowClass.hInstance
+    );
 }
 
 bool gui::CreateD3DDevice() noexcept
 {
-
+    
 }
 
 void gui::ResetD3DDevice() noexcept
@@ -70,7 +113,7 @@ LRESULT WINAPI WndProc(
     switch (msg)
     {
     case WM_SIZE:
-        if (gui::pD3DDevice != NULL && wParam != SIZE_MINIMIZED)
+        if (gui::pD3DDevice != nullptr && wParam != SIZE_MINIMIZED)
         {
             gui::presentParameters.BackBufferWidth = LOWORD(lParam);
             gui::presentParameters.BackBufferHeight = HIWORD(lParam);

@@ -17,9 +17,9 @@ namespace gui
 	inline WNDCLASSEXA windowClass = {};
 	inline POINTS cursorPosition = {}; // Relative to the screen
 	constexpr int WIDTH = 500;
-	constexpr int LENGTH = 500;
+	constexpr int HEIGHT = 500;
 
-	bool CreateWinAPIWindow(std::string_view windowName, std::string_view windowClassName) noexcept;
+	bool CreateWinAPIWindow(const char* windowName, const char* windowClassName) noexcept;
 	void DestroyWinAPIWindow() noexcept;
 
 	bool CreateD3DDevice() noexcept;
