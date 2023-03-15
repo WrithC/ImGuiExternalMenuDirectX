@@ -160,7 +160,18 @@ void gui::NewFrame() noexcept
 void gui::RenderFrame() noexcept
 {
     // TODO: Create own window
-    ImGui::ShowDemoWindow((bool*)true);
+    ImGui::SetNextWindowPos({ 0, 0 });
+    ImGui::SetNextWindowSize({ WIDTH, HEIGHT });
+    ImGui::Begin(
+        "menu",
+        &running,
+        ImGuiWindowFlags_NoResize |
+        ImGuiWindowFlags_NoCollapse |
+        ImGuiWindowFlags_NoMove |
+        ImGuiWindowFlags_NoSavedSettings
+    );
+    ImGui::Button("Click Me!");
+    ImGui::End();
 }
 
 void gui::EndFrame() noexcept

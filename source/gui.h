@@ -16,8 +16,8 @@ namespace gui
 	inline HWND hWindow = nullptr;
 	inline WNDCLASSEXA windowClass = {};
 	inline POINTS cursorPosition = {}; // Relative to the screen
-	constexpr int WIDTH = 2000;
-	constexpr int HEIGHT = 2000;
+	constexpr int WIDTH = 500;
+	constexpr int HEIGHT = 300;
 
 	bool CreateWinAPIWindow(const char* windowName, const char* windowClassName) noexcept;
 	void DestroyWinAPIWindow() noexcept;

@@ -17,7 +17,7 @@ int __stdcall wWinMain(
 		gui::NewFrame();
 		gui::RenderFrame();
 		gui::EndFrame();
-		std::this_thread::sleep_for(std::chrono::milliseconds(15));
+		std::this_thread::sleep_for(std::chrono::milliseconds(5));
 	}
 
 	gui::DestroyWinAPIWindow();
