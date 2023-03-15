@@ -29,7 +29,7 @@ namespace gui
 	bool CreateImGuiContext() noexcept;
 	void DestroyImGuiContext() noexcept;
 
-	void BeginRender() noexcept;
-	void Render() noexcept;
-	void EndRender() noexcept;
+	void NewFrame() noexcept;
+	void RenderFrame() noexcept;
+	void EndFrame() noexcept;
 }
