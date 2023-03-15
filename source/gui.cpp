@@ -30,8 +30,8 @@ bool gui::CreateWinAPIWindow(
         WS_POPUP,
         300, 300,
         WIDTH, HEIGHT,
-        NULL,
-        NULL,
+        nullptr,
+        nullptr,
         windowClass.hInstance,
         nullptr
     );
@@ -58,17 +58,61 @@ void gui::DestroyWinAPIWindow() noexcept
 
 bool gui::CreateD3DDevice() noexcept
 {
-    
+    pD3D = Direct3DCreate9(D3D_SDK_VERSION);
+    if (pD3D == nullptr)
+    {
+        return false;
+    }
+
+    ZeroMemory(&presentParameters, sizeof(presentParameters));
+
+    presentParameters.Windowed = TRUE;
+    presentParameters.SwapEffect = D3DSWAPEFFECT_DISCARD;
+    presentParameters.BackBufferFormat = D3DFMT_UNKNOWN;
+    presentParameters.EnableAutoDepthStencil = TRUE;
+    presentParameters.AutoDepthStencilFormat = D3DFMT_D16;
+    presentParameters.PresentationInterval = D3DPRESENT_INTERVAL_ONE; // Present with vsync
+
+    HRESULT result = pD3D->CreateDevice(
+        D3DADAPTER_DEFAULT,
+        D3DDEVTYPE_HAL,
+        hWindow,
+        D3DCREATE_HARDWARE_VERTEXPROCESSING,
+        &presentParameters,
+        &pD3DDevice
+    );
+    if (FAILED(result))
+    {
+        return false;
+    }
+
+    return true;
 }
 
 void gui::ResetD3DDevice() noexcept
 {
+    ImGui_ImplDX9_InvalidateDeviceObjects();
 
+    const HRESULT result = pD3DDevice->Reset(&presentParameters);
+    if (result == D3DERR_INVALIDCALL)
+        IM_ASSERT(0);
+
+    ImGui_ImplDX9_CreateDeviceObjects();
 }
 
 void gui::DestroyD3DDevice() noexcept
 {
-
+    if (pD3DDevice) 
+    { 
+        pD3DDevice->Release();
+        pD3DDevice = nullptr; 
+    }
+    
+    if (pD3D) 
+    { 
+        pD3D->Release();
+        pD3D = nullptr; 
+    }
 }
 
 bool gui::CreateImGuiContext() noexcept
