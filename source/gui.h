@@ -14,12 +14,12 @@ namespace gui
 
 	// WinAPI const and vars
 	inline HWND hWindow = nullptr;
-	inline WNDCLASSEXA windowClass = {};
+	inline WNDCLASSEXW windowClass = {};
 	inline POINTS cursorPosition = {}; // Relative to the screen
 	constexpr int WIDTH = 500;
 	constexpr int HEIGHT = 300;
 
-	bool CreateWinAPIWindow(const char* windowName, const char* windowClassName) noexcept;
+	bool CreateWinAPIWindow(const wchar_t* windowName, const wchar_t* windowClassName) noexcept;
 	void DestroyWinAPIWindow() noexcept;
 
 	bool CreateD3DDevice() noexcept;
