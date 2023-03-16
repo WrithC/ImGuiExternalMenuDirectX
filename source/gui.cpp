@@ -4,12 +4,12 @@
 #include "gui.h"
 
 bool gui::CreateWinAPIWindow(
-    const char* windowName,
-    const char* windowClassName
+    const wchar_t* windowName,
+    const wchar_t* windowClassName
 ) noexcept
 {
     // Populate window parameters
-    windowClass.cbSize = sizeof(WNDCLASSEXA);
+    windowClass.cbSize = sizeof(WNDCLASSEXW);
     windowClass.lpfnWndProc = WndProc;
     windowClass.hInstance = GetModuleHandle(NULL);
     windowClass.lpszClassName = windowClassName;
@@ -21,9 +21,9 @@ bool gui::CreateWinAPIWindow(
     windowClass.hbrBackground = nullptr;
     windowClass.lpszMenuName = nullptr;
 
-    RegisterClassExA(&windowClass);
+    RegisterClassExW(&windowClass);
 
-    hWindow = CreateWindowExA(
+    hWindow = CreateWindowExW(
         WS_EX_LEFT,
         windowClassName,
         windowName,
@@ -52,7 +52,7 @@ bool gui::CreateWinAPIWindow(
 void gui::DestroyWinAPIWindow() noexcept
 {
     DestroyWindow(hWindow);
-    UnregisterClass(
+    UnregisterClassW(
         windowClass.lpszClassName,
         windowClass.hInstance
     );

@@ -8,7 +8,7 @@ int __stdcall wWinMain(
 	int nShowCmd
 )
 {
-	gui::CreateWinAPIWindow("Menu", "Menu class");
+	gui::CreateWinAPIWindow(L"Menu", L"Menu class");
 	gui::CreateD3DDevice();
 	gui::CreateImGuiContext();
 
