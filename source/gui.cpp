@@ -41,8 +41,6 @@ bool gui::CreateWinAPIWindow(
         return false;
     }
 
-    SetWindowText(hWindow, windowName);
-
     ShowWindow(hWindow, SW_SHOWDEFAULT);
     UpdateWindow(hWindow);
 
