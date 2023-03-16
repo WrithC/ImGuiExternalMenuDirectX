@@ -11,7 +11,7 @@ bool gui::CreateWinAPIWindow(
     // Populate window parameters
     windowClass.cbSize = sizeof(WNDCLASSEXA);
     windowClass.lpfnWndProc = WndProc;
-    windowClass.hInstance = GetModuleHandle(nullptr);
+    windowClass.hInstance = GetModuleHandle(NULL);
     windowClass.lpszClassName = windowClassName;
     windowClass.cbWndExtra = 0;
     windowClass.cbClsExtra = 0;
@@ -40,6 +40,8 @@ bool gui::CreateWinAPIWindow(
     {
         return false;
     }
+
+    SetWindowText(hWindow, windowName);
 
     ShowWindow(hWindow, SW_SHOWDEFAULT);
     UpdateWindow(hWindow);
