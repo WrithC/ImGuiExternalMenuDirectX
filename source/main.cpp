@@ -1,12 +1,7 @@
 #include "gui.h"
 #include <thread>
 
-int __stdcall wWinMain(
-	HINSTANCE hInstance, 
-	HINSTANCE hPrevInstance,
-	PWSTR lpCmdLine,
-	int nShowCmd
-)
+INT APIENTRY wWinMain(HINSTANCE, HINSTANCE, PWSTR, int)
 {
 	gui::CreateWinAPIWindow(L"Menu", L"Menu class");
 	gui::CreateD3DDevice();
