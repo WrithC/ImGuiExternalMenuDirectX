@@ -249,7 +249,7 @@ LRESULT WINAPI WndProc(
         }
 
         //Validate that the window won't have bad position after moving
-        if (!(gui::cursorPosition.x >= 0 && gui::cursorPosition.y >= 0))
+        if (!(gui::cursorPosition.x >= 0 && gui::cursorPosition.y >= 0 && gui::cursorPosition.y <= 20)) // Assert that the cursor is within the menu bar
         {
             return 0;
         }
