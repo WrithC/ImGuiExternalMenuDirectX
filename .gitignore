@@ -18,6 +18,8 @@ mono_crash.*
 
 # Build results
 Build\
+build
+Build
 [Dd]ebug/
 [Dd]ebugPublic/
 [Rr]elease/
@@ -363,3 +365,5 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 Build/ImGuiExternalMenuDirectX.exe
+/Build/ImGuiExternalMenuDirectX.exe
+/Build/Intermediates/ImGuiExt.CE78EB71.tlog/link.read.1.tlog
